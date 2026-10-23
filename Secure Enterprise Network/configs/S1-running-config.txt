@@ -1,0 +1,170 @@
+Building configuration...
+
+Current configuration : 2855 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname S1
+!
+enable secret 5 $1$mERr$QNo5iFLXRazff2O5bCP9P/
+!
+!
+!
+ip ssh version 2
+ip domain-name secure.local
+!
+username netadmin secret 5 $1$mERr$PX7gMaHsDC4K6C7G5O2OG.
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ description PC-ADMIN
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/2
+ description PC-ENG
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/3
+ description SRV-APP
+ switchport access vlan 30
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/4
+ description PC-GUEST
+ switchport access vlan 40
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/5
+ description PC-MGMT
+ switchport access vlan 99
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/6
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/7
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/8
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/9
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/10
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/11
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/12
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/13
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/14
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/15
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/16
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/17
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/18
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/19
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/20
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/21
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/22
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/23
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface FastEthernet0/24
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface GigabitEthernet0/1
+ description TRUNK-TO-R1-G0/0
+ switchport trunk allowed vlan 10,20,30,40,99
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ description UNUSED-SHUTDOWN
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 192.168.99.2 255.255.255.0
+!
+ip default-gateway 192.168.99.1
+!
+!
+!
+!
+ip access-list standard MGMT-SSH
+ permit host 192.168.99.10
+ deny any
+line con 0
+!
+line vty 0 4
+ access-class MGMT-SSH in
+ login local
+ transport input ssh
+line vty 5 15
+ access-class MGMT-SSH in
+ login local
+ transport input ssh
+!
+!
+!
+!
+end
